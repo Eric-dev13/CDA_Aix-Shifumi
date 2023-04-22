@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shifumi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>SHIFUMI</h1>
+    </header>
+
+    <section class="containerFlex">
+        <img src="image/bg.png" alt="" width="200px">
+        <div class="pContainer">
+            <p class="TextWeight">Description du jeu</p>
+            <p class="description">
+                Pierre-papier-ciseaux est un jeu effectué avec les mains et opposant deux joueurs. Il possède de nombreux noms alternatifs, notamment en variant l'ordre des termes ou en remplaçant certains mots comme « papier » par « feuille » ou « pierre » par « caillou » ou « roche ». Le terme chifoumi est également une appellation courante.
+            </p>
+        </div> 
+    </section>
+    
+    <!-- Balise qui permet d'afficher la succession des différents écrans (simulant les pages) -->
+    <section class="start">
+        <button onclick="demanderEtMemoriserPseudoJoueur1()">Jouer a Shifumi</button>
+    </div>
+
+    <section class="none demanderEtMemoriserPseudoJoueur1">
+        <label for="pseudoJoueur1">Joueur 1 veuillez saisir votre pseudo</label>
+        <input type="text" id="pseudoJoueur1">
+        <button type="button" class="validationPseudo1">Enregistrer votre pseudo</button>
+    </section>
+
+    <section class="none choixAdversaire">
+        <button class="contreIa">Jouer contre l'IA</button>
+        <button class="contreJoueur2">Joueur contre joueur</button>
+    </section>
+
+    <section class="none demanderEtMemoriserPseudoJoueur2">
+        <label for="pseudoJoueur2">Joueur 2, veuillez saisir votre pseudo</label>
+        <input type="text" id="pseudoJoueur2">
+        <button type="button" class="validationPseudo2">Enregistrer votre pseudo</button>
+    </section>
+
+    <section class="none demandeEtMemoriseChoixJoueur">
+        <p></p>
+        <div>
+            <img src="image/choix0.jpg" alt="Ciseaux" class="ciseaux" height="100px">
+            <img src="image/choix1.jpg" alt="Pierre" class="pierre" height="100px">
+            <img src="image/choix2.jpg" alt="Feuille" class="feuille" height="100px">
+        </div>
+    </section>
+
+    <section class="none demandeEtMemoriseChoixJoueur2">
+        <p></p>
+        <div>
+            <img src="image/choix0.jpg" alt="CiseauxJoueur2" class="ciseaux" height="100px">
+            <img src="image/choix1.jpg" alt="PierreJoueur2" class="pierre" height="100px">
+            <img src="image/choix2.jpg" alt="FeuilleJoueur2" class="feuille" height="100px">
+        </div>
+    </section>
+
+    <footer>
+        <p> L'équipe</p>
+        <ul>
+            <li>Caty</li>
+            <li>Hugo</li>
+            <li>Vincent</li>
+            <li>Eric</li>
+        </ul>
+    </footer>
+   
+    <!--CODE JAVASCRIPT-->
+    <script>
+        let pseudoJoueur1=null 
+        let pseudoJoueur2=null
+        let choixJoueur1=0
+        let choixJoueur2=0
+        let pointJoueur1=0
+        let pointJoueur2=0
+        let adversaire="" // jouer avec ia:"ia" ou autre joueur:"autreJoueur"
+
+        function demanderEtMemoriserPseudoJoueur1(){
+            document.querySelector(".demanderEtMemoriserPseudoJoueur1").classList.toggle("none")
+            // document.querySelector(".start").classList.toggle("none")
+            // Cible l'élément button avec l'attribut class="validationPseudo"
+            // Place un écouteur d'évenement (click) sur le bouton
+            document.querySelector(".validationPseudo1").addEventListener("click", ()=> {
+                // Mémorise le pseudo du joueur 1
+                pseudoJoueur1 = document.querySelector("#pseudoJoueur1").value
+                // Affiche le formulaire pour le choix d'un adversaire
+                choixAdversaire()
+            }) 
+        }
+
+        function choixAdversaire(){
+            document.querySelector(".choixAdversaire").classList.toggle("none")
+            document.querySelector(".demanderEtMemoriserPseudoJoueur1").classList.toggle("none")
+            // si joueur 1 contre l'IA
+            document.querySelector(".contreIa").addEventListener("click",()=>{
+                adversaire="ia"
+                memorisePseudoJoueur2()
+            })
+            // si joueur 1 contre un autre joueur
+            document.querySelector(".contreJoueur2").addEventListener("click",()=>{ 
+                adversaire="autreJoueur"
+                memorisePseudoJoueur2()
+            })
+        }
+
+        function memorisePseudoJoueur2(){
+            if(adversaire == "ia"){
+                // Mémorise le nom de l'ia en tant que joueur 2
+                pseudoJoueur2 = "Cefeus"
+                // Demande au joueur 1 de choisir un des trois coups possibles
+                demandeEtMemoriseChoixJoueur(pseudoJoueur1,"joueur1")
+            } else {
+                // Fourni un formulaire pour entrer le pseudo du joueur 2
+                document.querySelector(".demanderEtMemoriserPseudoJoueur2").classList.toggle("none")
+                document.querySelector(".choixAdversaire").classList.toggle("none")
+                //  Demande au joueur 1 de choisir un des trois coups possibles
+                document.querySelector(".validationPseudo2").addEventListener("click", ()=> {
+                    // Mémorise le speudo du joueur 2
+                    pseudoJoueur2 = document.querySelector("#pseudoJoueur2").value
+                    // Demande au joueur 1 de choisir un des trois coups possibles
+                    demandeEtMemoriseChoixJoueur(pseudoJoueur1,"joueur1")
+                     // Demande au joueur 1 de choisir un des trois coups possibles
+                    demandeEtMemoriseChoixJoueur(pseudoJoueur2,"joueur2")
+                }) 
+            }
+        }
+
+        function jouer(){
+            console.log("jouer")
+            if(adversaire = "ia"){
+                // On joue contre la machine on genere un nombre aléatoire
+                // choixJoueur2 = Math.random(1,3)
+                choixJoueur2=2
+                root.innerHTML = `
+                    <p>${pseudoJoueur1} a choisi ${getNameImage(choixJoueur1)}</p>
+                    <p>${pseudoJoueur2} a choisi ${getNameImage(choixJoueur2)}</p>
+                `
+                algoChifoumi()
+            } else {
+                // On joue contre un autre joueur on lui demande de choisir
+                if(pseudoJoueur2 == null) {
+                    demandeEtMemoriseChoixJoueur(pseudoJoueur2,"joueur2")
+                }
+                // on execute l'algo 
+                algoChifoumi()
+            }
+        }
+
+        function demandeEtMemoriseChoixJoueur(pseudo, joueur){
+           // Affiche les images ciseaux, pierre, feuille
+           const demandeEtMemoriseChoixJoueur1 = document.querySelector(".demandeEtMemoriseChoixJoueur")
+           demandeEtMemoriseChoixJoueur1.classList.toggle("none")
+           document.querySelector(".demanderEtMemoriserPseudoJoueur2").classList.toggle("none")
+           demandeEtMemoriseChoixJoueur1.querySelector("p").innerHTML=`${pseudo}, sélectionnez une image`
+
+            /* Mémorise le choix du joueur 1
+            constantes
+            f = 1 : feuille
+            p = 2 : pierre
+            c = 3 : ciseaux */
+            document.querySelector(".ciseaux").addEventListener("click", ()=>{
+                joueur == "joueur1" ? choixJoueur1 = 3 : choixJoueur2 = 3
+                // document.querySelector(".demandeEtMemoriseChoixJoueur").classList.toggle("none")
+            })
+            document.querySelector(".pierre").addEventListener("click", ()=>{
+                joueur == "joueur1" ? choixJoueur1 = 2 : choixJoueur2 = 2
+                // document.querySelector(".demandeEtMemoriseChoixJoueur").classList.toggle("none")
+            })
+            document.querySelector(".feuille").addEventListener("click", ()=>{
+                joueur == "joueur1" ? choixJoueur1 = 1 : choixJoueur2 = 1
+                // document.querySelector(".demandeEtMemoriseChoixJoueur").classList.toggle("none")
+            })
+        }
+
+        function algoChifoumi(){
+            if(choixJoueur1 ==  choixJoueur2){
+                // EGALITE - MATCH NULL
+                root.innerHTML += ` 
+                    <img src="image/egalite.jpg" alt="Gagné" width="50px">
+                ` 
+                console.log("match nul")
+            } else if (choixJoueur1 == 1) {
+                if(choixJoueur2 == 3){
+                    // JOUEUR 1 PERD
+                    messageJoueur(false)
+                } else {
+                   // JOUEUR 1 GAGNE 
+                   messageJoueur(true) 
+                }
+            } else if (choixJoueur1 == 2) {
+                if(choixJoueur2 == 3){
+                    // JOUEUR 1 PERD
+                    messageJoueur(false)
+                } else {
+                   // JOUEUR 1 GAGNE 
+                   messageJoueur(true) 
+                }
+            } else if (choixJoueur1 == 3) {
+                if(choixJoueur2 == 3){
+                    // JOUEUR 1 PERD
+                    messageJoueur(false)
+                } else {
+                   // JOUEUR 1 GAGNE 
+                   messageJoueur(true) 
+                }
+            }
+        }
+
+        function messageJoueur(state){
+            if(state){
+                // SI TRUE ALORS JOUEUR 1 A GAGNER
+                root.innerHTML += ` 
+                    <img src="image/true.jpg" alt="Gagné" width="50px">
+                    <p>Félicitation! ${pseudoJoueur1} vous avez gagné.</p>
+                ` 
+                if(pseudoJoueur2 != "Cefeus"){
+                    root.innerHTML+=`
+                        <img src="image/false.jpg" alt="perdu" width="50px">
+                        <p>Désolé! ${pseudoJoueur2} vous avez perdu.</p>
+                    `
+                } 
+            } else {
+                // SI FALSE ALORS JOUEUR 1 PERDU
+                if(pseudoJoueur2 == "Cefeus"){
+                    root.innerHTML+=`
+                        <img src="image/false.jpg" alt="perdu" width="50px">
+                        <p>Désolé! ${pseudoJoueur1} vous avez perdu.</p>
+                    `
+            } else {
+                root.innerHTML += ` 
+                    <img src="image/true.jpg" alt="Gagné" width="50px">
+                    <p>Félicitation! ${pseudoJoueur2} vous avez gagné.</p>
+                `
+            }
+            }
+
+            
+        }
+
+        function getNameImage(value) {
+            switch (value) {
+                case 1:
+                    return "Feuille"
+                    break;
+                
+                case 2:
+                    return "Pierre"
+                    break;
+
+                case 3:
+                    return "Ciseaux"
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+
+       
+    </script>
+</body>
+</html>
