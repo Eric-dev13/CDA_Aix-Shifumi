@@ -1,12 +1,3 @@
-# Shifumi
+# Shifumi - individuel
 
-Initialise les variables 
-Ecran n°1 :  "jouer"
-Ecran n°2 : affiche et memorise pseudo joueur 1
-Choix adversaire
-Memorise pseudo joueur 2
-affiche Et MemoriseChoixJoueur => joueur1
-
-affiche Et MemoriseChoixJoueur => joueur2
-jouer
-algoShifoumi
+[![](https://github.com/Eric-dev13/CDA_Aix-Shifumi/blob/main/assets/image/shifumiResisze.jpg)](https://eric-dev13.github.io/CDA_Aix-Shifumi/)
